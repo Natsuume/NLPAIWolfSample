@@ -138,7 +138,7 @@ public class ProtocolConverter {
 		List<String> textList = new ArrayList<>();
 		List<String>  protocolTextList = new ArrayList<>();
 
-		//アンカーや記号の削除などぶんしょうの整形、発話内容を文毎に区切りListに格納する
+		//アンカーや記号の削除など文章の整形、発話内容を文毎に区切りListに格納する
 		textList = Arrays.asList(
 				talk.getText().replaceAll("[ 　]", "")
 				.replaceAll("[！？]", "。")
@@ -163,15 +163,9 @@ public class ProtocolConverter {
 				boolean isRequest = false;
 				boolean isPast = false;
 				for(String feature : phrase.getFeatures()){
-					if(feature.startsWith("用言代表表記")){
-						verb = feature.split(":")[1].split("/")[0];
-					}
-					if(!isRequest){
-						isRequest = feature.equals("態:ほしい");
-					}
-					if(!isPast){
-						isPast = feature.equals("時制-過去");
-					}
+					if(feature.startsWith("用言代表表記")) verb = feature.split(":")[1].split("/")[0];
+					if(!isRequest) isRequest = feature.equals("態:ほしい");
+					if(!isPast) isPast = feature.equals("時制-過去");
 				}
 
 				//プロトコルの日本語文字列と比較してプロトコルを取得
