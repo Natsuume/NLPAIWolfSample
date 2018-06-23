@@ -259,9 +259,7 @@ public class ProtocolConverter {
 				case 3:
 					sortedProtocolList.add(agentList.remove(0));
 				case 2:
-					if(request != null){
-						sortedProtocolList.add(request);
-					}
+					if(request != null) sortedProtocolList.add(request);
 					sortedProtocolList.add(agentList.remove(0));
 				default:
 					if(!(request == null || sortedProtocolList.contains(request))){
@@ -275,17 +273,13 @@ public class ProtocolConverter {
 						}else{
 							Protocol protocol = protocolMap.get(type);
 							isIncorrect = protocol == null;
-							if(isIncorrect){
-								break;
-							}
+							if(isIncorrect) break;
 							sortedProtocolList.add(protocol);
 						}
 					}
 				}
 			}
 			protocolList = sortedProtocolList;
-
-
 
 			//protocolListを文字列へ変換
 			String protocolString = "";
@@ -295,15 +289,10 @@ public class ProtocolConverter {
 				for(int i = 0; i < protocolList.size(); i++){
 					Protocol protocol = protocolList.get(i);
 					protocolString += protocol.getProtocol();
-					if(protocol.getProtocol().equals("REQUEST")){
-						protocolString += "(";
-					}else if(i < protocolList.size() -1){
-						protocolString += " ";
-					}
+					if(protocol.getProtocol().equals("REQUEST")) protocolString += "(";
+					else if(i < protocolList.size() -1) protocolString += " ";
 				}
-				if(request != null){
-					protocolString += ")";
-				}
+				if(request != null) protocolString += ")";
 			}
 
 			return protocolString;
@@ -311,12 +300,9 @@ public class ProtocolConverter {
 
 		//人狼知能プロトコルは1発話につき1文しか発話できないため、発話文が複数ならどれか一つを選択
 		switch(protocolTextList.size()){
-		case 0:
-			return Talk.OVER;
-		case 1:
-			return protocolTextList.get(0);
-		default:
-			return protocolTextList.get(new Random().nextInt(protocolTextList.size()));
+		case 0: return Talk.OVER;
+		case 1: return protocolTextList.get(0);
+		default: return protocolTextList.get(new Random().nextInt(protocolTextList.size()));
 		}
 	}
 }
